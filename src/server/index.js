@@ -8,7 +8,7 @@ import RedisStore from "connect-redis";
 
 dotenv.config();
 
-createClient().connect().catch(console.error);
+const redisClient = createClient().connect().catch(console.error);
 
 // Initialize store.
 const redisStore = new RedisStore({
@@ -34,6 +34,6 @@ app.use(sessionMiddleware);
 
 // need this for react router to work
 app.get("*", (req, res) => res.sendFile(path.resolve("dist", "index.html")));
-app.listen(process.env.PORT, () => {
+app.listen(process.env.PORT || 3000, () => {
   console.log(`Listening on port ${process.env.PORT}`);
 });
